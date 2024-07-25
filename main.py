@@ -10,15 +10,15 @@ from tkinter import messagebox
 with open('model.pickle', 'rb') as f:
     model = pickle.load(f)
 
-# Define the class names (adjust based on your model)
+
 class_names = ['Potato___Early_blight', 'Potato___Late_blight', 'Potato___healthy']
 
 # Prediction function
 def predict_image(model, img):
-    img = img.resize((256, 256))  # Resize to match model input
+    img = img.resize((256, 256)) 
     img_array = np.array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array = img_array / 255.0  # Normalize if needed
+    img_array = img_array / 255.0  
 
     predictions = model.predict(img_array)
     
@@ -39,7 +39,7 @@ def select_image():
     if file_path:
         try:
             img = Image.open(file_path).convert('RGB')
-            img.thumbnail((300, 300))  # Resize for display
+            img.thumbnail((256, 256))  
             img_tk = ImageTk.PhotoImage(img)
             l1.configure(image=img_tk)
             l1.image = img_tk
@@ -58,7 +58,7 @@ ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("dark-blue")
 
 app = ctk.CTk()
-app.geometry("1920x1080")  # Increased window size
+app.geometry("1920x1080")
 app.title("SpudSage.in")
 
 img1 = ImageTk.PhotoImage(Image.open("img1.jpg"))
@@ -86,16 +86,15 @@ l2.place(relx=0.5, rely=0.30, anchor=tk.CENTER)
 l3 = ctk.CTkLabel(master=frame, text="Check the condition of your potato leaves with just a few clicks!", font=('Arial', 22))
 l3.place(relx=0.5, rely=0.37, anchor=tk.CENTER)
 
-# Button to select image and predict
 button1 = ctk.CTkButton(master=frame, text="Select Image and Predict", width=300, corner_radius=10, command=select_image, font=('Arial', 18))
 button1.place(relx=0.5, rely=0.45, anchor=tk.CENTER)
 
 # Label to display prediction results, initially hidden
 result_text = tk.StringVar()
 result_label = tk.Label(master=frame, textvariable=result_text, font=('Arial', 18), fg="white", bg="black")
-result_label.place(relx=0.5, rely=0.70, anchor=tk.CENTER)  # Adjust position as needed
+result_label.place(relx=0.5, rely=0.70, anchor=tk.CENTER)  
 
-# Add a label for displaying the image, initially not placed
+
 l1 = ctk.CTkLabel(master=frame)
 
 app.mainloop()
